@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 /**
  * Get all waifus
@@ -123,7 +123,6 @@ export const getWaifuImageUrl = (imageUrl) => {
   // If it's already a full URL, return it
   if (imageUrl.startsWith('http')) return imageUrl;
   
-  // Otherwise, construct the full URL
-  const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-  return `${baseUrl}${imageUrl}`;
+  // Otherwise, return it as is (relative to public folder)
+  return imageUrl;
 };

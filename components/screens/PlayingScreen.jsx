@@ -510,4 +510,3 @@ const PlayingScreen = () => {
 };
 
 export default PlayingScreen;
-

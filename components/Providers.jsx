@@ -6,9 +6,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 export function Providers({ children }) {
   return (
     <SessionProvider>
-      <AuthProvider>
-        {children}
-      </AuthProvider>
+      <AuthProvider>{children}</AuthProvider>
     </SessionProvider>
   );
 }
