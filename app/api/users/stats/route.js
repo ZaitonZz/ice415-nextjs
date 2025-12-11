@@ -36,7 +36,6 @@ export async function GET(request) {
         username: user.username,
         joinDate: user.createdAt,
         lastPlayed: gameState ? gameState.lastPlayed : null,
-        achievements: gameState ? gameState.achievements.length : 0,
         endingsUnlocked: gameState ? gameState.unlockedEndings.length : 0,
         conversationCount: gameState ? gameState.conversationCount : 0
       }

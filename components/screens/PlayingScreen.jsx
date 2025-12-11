@@ -219,39 +219,6 @@ const PlayingScreen = () => {
     }
   };
 
-  // Take screenshot
-  const takeScreenshot = () => {
-    const screenshot = {
-      id: Date.now(),
-      timestamp: new Date().toLocaleString(),
-      waifu: selectedWaifu,
-      mood: mood,
-      affection: affection,
-      image: currentImage,
-    };
-    dispatch({ type: "ADD_SCREENSHOT", screenshot });
-    playSound("click");
-
-    // Show notification
-    const notification = document.createElement("div");
-    notification.className =
-      "fixed top-4 right-4 bg-purple-500 text-white p-4 rounded-lg shadow-lg z-50 animate-bounce";
-    notification.innerHTML = `
-      <div class="flex items-center space-x-2">
-        <span class="text-2xl">📸</span>
-        <div>
-          <div class="font-bold">Screenshot Saved!</div>
-          <div class="text-sm">Added to your collection</div>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(notification);
-
-    setTimeout(() => {
-      document.body.removeChild(notification);
-    }, 3000);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-900 to-red-900 p-8">
       {/* Header Bar */}
@@ -292,13 +259,6 @@ const PlayingScreen = () => {
             {/* New Feature Buttons */}
             <div className="flex items-center space-x-2">
               <button
-                onClick={takeScreenshot}
-                className="text-purple-300 hover:text-white transition-colors"
-                title="Take Screenshot"
-              >
-                <span className="text-xl">📸</span>
-              </button>
-              <button
                 onClick={() => {
                   dispatch({ type: "SET_GAME_STATE", gameState: "dateSelect" });
                   playSound("click");
@@ -320,16 +280,6 @@ const PlayingScreen = () => {
                 title="Play Mini-Game"
               >
                 <span className="text-xl">🎮</span>
-              </button>
-              <button
-                onClick={() => {
-                  dispatch({ type: "SET_GAME_STATE", gameState: "giftSelect" });
-                  playSound("click");
-                }}
-                className="text-purple-300 hover:text-white transition-colors"
-                title="Give Gift"
-              >
-                <span className="text-xl">🎁</span>
               </button>
               <button
                 onClick={() => {
@@ -477,11 +427,6 @@ const PlayingScreen = () => {
           mood,
           affection,
           conversationCount,
-          achievements: state.achievements,
-          unlockedOutfits: state.unlockedOutfits,
-          currentOutfit: state.currentOutfit,
-          screenshots: state.screenshots,
-          gifts: state.gifts,
           currentDate: state.currentDate,
           storyProgress: state.storyProgress,
           unlockedEndings: state.unlockedEndings,

@@ -68,13 +68,6 @@ export const gameReducer = (state, action) => {
     case "SET_SHOW_ADMIN_PANEL":
       return { ...state, showAdminPanel: action.show };
     
-    // Screenshots and gifts
-    case "ADD_SCREENSHOT":
-      return { ...state, screenshots: [...state.screenshots, action.screenshot] };
-    
-    case "ADD_GIFT":
-      return { ...state, gifts: [...state.gifts, action.gift] };
-    
     // Dates
     case "SET_DATE_LOCATION":
       return { ...state, dateLocation: action.location };
@@ -86,19 +79,7 @@ export const gameReducer = (state, action) => {
     case "SET_MINIGAME":
       return { ...state, miniGame: action.minigame };
     
-    // Outfits
-    case "UNLOCK_OUTFIT":
-      if (state.unlockedOutfits.includes(action.outfit)) {
-        return state;
-      }
-      return { ...state, unlockedOutfits: [...state.unlockedOutfits, action.outfit] };
-    
-    case "SET_CURRENT_OUTFIT":
-      return { ...state, currentOutfit: action.outfit };
-    
     // Achievements
-    case "SET_ACHIEVEMENTS":
-      return { ...state, achievements: action.achievements };
     
     // Theme
     case "SET_THEME":
@@ -111,9 +92,6 @@ export const gameReducer = (state, action) => {
         soundEnabled: state.soundEnabled,
         musicEnabled: state.musicEnabled,
         currentTheme: state.currentTheme,
-        achievements: state.achievements,
-        unlockedOutfits: state.unlockedOutfits,
-        screenshots: state.screenshots,
       };
     
     default:

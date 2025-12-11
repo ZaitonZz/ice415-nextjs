@@ -6,9 +6,6 @@ import { getGreetingImage } from "../../services/waifuPics";
 import { playSound } from "../../services/audio";
 import AdminPanel from "../admin/AdminPanel";
 import { waifuTypes } from "../../data/waifuTypes";
-import { achievementList } from "../../data/achievements";
-import { giftList } from "../../data/gifts";
-import { outfitList } from "../../data/outfits";
 
 const StartScreen = () => {
   const state = useGame();
@@ -153,20 +150,12 @@ const StartScreen = () => {
           mood: state.mood,
           affection: state.affection,
           conversationCount: state.conversationCount,
-          achievements: state.achievements,
-          unlockedOutfits: state.unlockedOutfits,
-          currentOutfit: state.currentOutfit,
-          screenshots: state.screenshots,
-          gifts: state.gifts,
           currentDate: state.currentDate,
           storyProgress: state.storyProgress,
           unlockedEndings: state.unlockedEndings,
         }}
         onUpdateGameData={handleUpdateGameData}
         waifuTypes={waifuTypes}
-        achievementList={achievementList}
-        giftList={giftList}
-        outfitList={outfitList}
       />
     </div>
   );

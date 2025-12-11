@@ -10,7 +10,6 @@ import DateScreen from "./screens/DateScreen";
 import DateSelectScreen from "./screens/DateSelectScreen";
 import MinigameScreen from "./screens/MinigameScreen";
 import MinigameSelectScreen from "./screens/MinigameSelectScreen";
-import GiftSelectScreen from "./screens/GiftSelectScreen";
 
 const ScreenRouter = () => {
   const { gameState, showSettings } = useGame();
@@ -45,8 +44,6 @@ const ScreenRouter = () => {
       return <MinigameScreen />;
     case "minigameSelect":
       return <MinigameSelectScreen />;
-    case "giftSelect":
-      return <GiftSelectScreen />;
     default:
       console.warn("Unknown gameState:", gameState);
       return <StartScreen />;
@@ -54,4 +51,3 @@ const ScreenRouter = () => {
 };
 
 export default ScreenRouter;
-

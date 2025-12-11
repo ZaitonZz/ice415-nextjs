@@ -9,10 +9,6 @@ import {
   RotateCcw,
   User,
   Heart,
-  Gift,
-  Camera,
-  Trophy,
-  Palette,
   Home,
   Database,
   BarChart3,
@@ -27,9 +23,6 @@ const AdminPanel = ({
   gameData,
   onUpdateGameData,
   waifuTypes,
-  achievementList,
-  giftList,
-  outfitList,
 }) => {
   const [activeTab, setActiveTab] = useState("overview");
   const [editingItem, setEditingItem] = useState(null);
@@ -67,11 +60,6 @@ const AdminPanel = ({
           mood: "neutral",
           affection: 50,
           conversationCount: 0,
-          achievements: [],
-          unlockedOutfits: [],
-          currentOutfit: "default",
-          screenshots: [],
-          gifts: [],
           currentDate: 0,
           storyProgress: 0,
           unlockedEndings: [],
@@ -113,26 +101,6 @@ const AdminPanel = ({
     }
   };
 
-  // Delete item
-  const deleteItem = (itemId, itemType) => {
-    if (window.confirm(`Are you sure you want to delete this ${itemType}?`)) {
-      setIsLoading(true);
-      setTimeout(() => {
-        if (itemType === "screenshot") {
-          const updatedScreenshots = gameData.screenshots.filter(
-            (s) => s.id !== itemId
-          );
-          updateGameData("screenshots", updatedScreenshots);
-        } else if (itemType === "gift") {
-          const updatedGifts = gameData.gifts.filter((g) => g.id !== itemId);
-          updateGameData("gifts", updatedGifts);
-        }
-        setIsLoading(false);
-        showNotification(`${itemType} deleted successfully!`, "success");
-      }, 1000);
-    }
-  };
-
   if (!isOpen) return null;
 
   // Main Admin Panel (authentication handled by AdminLayout)
@@ -160,6 +128,13 @@ const AdminPanel = ({
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               <span>Admin Online</span>
             </div>
+
+            <button
+              onClick={onClose}
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+              <X className="w-6 h-6 text-gray-500 dark:text-gray-400" />
+            </button>
           </div>
         </div>
       </header>
@@ -255,30 +230,6 @@ const AdminPanel = ({
                   icon: Heart,
                   description: "Character management",
                 },
-                {
-                  id: "achievements",
-                  label: "Achievements",
-                  icon: Trophy,
-                  description: "Unlock system",
-                },
-                {
-                  id: "gifts",
-                  label: "Gifts",
-                  icon: Gift,
-                  description: "Gift tracking",
-                },
-                {
-                  id: "screenshots",
-                  label: "Screenshots",
-                  icon: Camera,
-                  description: "Photo gallery",
-                },
-                {
-                  id: "outfits",
-                  label: "Outfits",
-                  icon: Palette,
-                  description: "Wardrobe system",
-                },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -314,23 +265,12 @@ const AdminPanel = ({
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                 {activeTab === "overview" && "Dashboard"}
                 {activeTab === "waifus" && "Waifu Management"}
-                {activeTab === "achievements" && "Achievement System"}
-                {activeTab === "gifts" && "Gift Tracking"}
-                {activeTab === "screenshots" && "Screenshot Gallery"}
-                {activeTab === "outfits" && "Wardrobe System"}
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
                 {activeTab === "overview" &&
                   "Monitor game statistics and performance"}
                 {activeTab === "waifus" &&
                   "Manage character types and personalities"}
-                {activeTab === "achievements" &&
-                  "Control achievement unlocks and progress"}
-                {activeTab === "gifts" && "Track and manage gift interactions"}
-                {activeTab === "screenshots" &&
-                  "View and manage captured moments"}
-                {activeTab === "outfits" &&
-                  "Control outfit unlocks and wardrobe"}
               </p>
             </div>
 
@@ -338,7 +278,7 @@ const AdminPanel = ({
             {activeTab === "overview" && (
               <div className="space-y-8">
                 {/* Stats Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-6 rounded-xl text-white shadow-lg">
                     <div className="flex items-center justify-between">
                       <div>
@@ -380,48 +320,6 @@ const AdminPanel = ({
                       <User className="w-8 h-8 text-purple-200" />
                     </div>
                   </div>
-
-                  <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 p-6 rounded-xl text-white shadow-lg">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-yellow-100 text-sm font-medium">
-                          Achievements
-                        </p>
-                        <p className="text-2xl font-bold">
-                          {gameData.achievements.length}
-                        </p>
-                      </div>
-                      <Trophy className="w-8 h-8 text-yellow-200" />
-                    </div>
-                  </div>
-
-                  <div className="bg-gradient-to-r from-pink-500 to-pink-600 p-6 rounded-xl text-white shadow-lg">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-pink-100 text-sm font-medium">
-                          Screenshots
-                        </p>
-                        <p className="text-2xl font-bold">
-                          {gameData.screenshots.length}
-                        </p>
-                      </div>
-                      <Camera className="w-8 h-8 text-pink-200" />
-                    </div>
-                  </div>
-
-                  <div className="bg-gradient-to-r from-indigo-500 to-indigo-600 p-6 rounded-xl text-white shadow-lg">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-indigo-100 text-sm font-medium">
-                          Gifts Given
-                        </p>
-                        <p className="text-2xl font-bold">
-                          {gameData.gifts.length}
-                        </p>
-                      </div>
-                      <Gift className="w-8 h-8 text-indigo-200" />
-                    </div>
-                  </div>
                 </div>
 
                 {/* Danger Zone */}
@@ -438,8 +336,8 @@ const AdminPanel = ({
                       </h3>
                       <p className="text-red-700 dark:text-red-300 mb-4">
                         This will permanently reset all game data including
-                        progress, achievements, and user interactions. This
-                        action cannot be undone.
+                        progress and user interactions. This action cannot be
+                        undone.
                       </p>
                       <button
                         onClick={resetGameData}
@@ -466,266 +364,6 @@ const AdminPanel = ({
 
             {/* Waifus Tab */}
             {activeTab === "waifus" && <WaifuManagement />}
-
-            {/* Achievements Tab */}
-            {activeTab === "achievements" && (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    Achievement System
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Control achievement unlocks and progress tracking
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {achievementList.map((achievement) => (
-                    <div
-                      key={achievement.id}
-                      className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border-2 p-6 transition-all duration-200 ${
-                        gameData.achievements.includes(achievement.id)
-                          ? "border-green-500 bg-green-50 dark:bg-green-900/20 shadow-green-200 dark:shadow-green-900/20"
-                          : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
-                      }`}
-                    >
-                      <div className="flex items-center space-x-3 mb-4">
-                        <div className="text-3xl">{achievement.icon}</div>
-                        <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900 dark:text-white text-lg">
-                            {achievement.name}
-                          </h4>
-                          <div
-                            className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                              gameData.achievements.includes(achievement.id)
-                                ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300"
-                                : "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300"
-                            }`}
-                          >
-                            {gameData.achievements.includes(achievement.id)
-                              ? "Unlocked"
-                              : "Locked"}
-                          </div>
-                        </div>
-                      </div>
-
-                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                        {achievement.description}
-                      </p>
-
-                      <button
-                        onClick={() => {
-                          const newAchievements =
-                            gameData.achievements.includes(achievement.id)
-                              ? gameData.achievements.filter(
-                                  (a) => a !== achievement.id
-                                )
-                              : [...gameData.achievements, achievement.id];
-                          updateGameData("achievements", newAchievements);
-                        }}
-                        className={`w-full px-4 py-2 rounded-lg font-medium transition-colors ${
-                          gameData.achievements.includes(achievement.id)
-                            ? "bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50"
-                            : "bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900/30 dark:text-green-300 dark:hover:bg-green-900/50"
-                        }`}
-                      >
-                        {gameData.achievements.includes(achievement.id)
-                          ? "Remove Achievement"
-                          : "Unlock Achievement"}
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Gifts Tab */}
-            {activeTab === "gifts" && (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    Gift Tracking
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Monitor and manage gift interactions
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  {gameData.gifts.length === 0 ? (
-                    <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-                      <Gift className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        No Gifts Given Yet
-                      </h4>
-                      <p className="text-gray-500 dark:text-gray-400">
-                        Gifts will appear here once they are given in the game
-                      </p>
-                    </div>
-                  ) : (
-                    gameData.gifts.map((gift) => (
-                      <div
-                        key={gift.id}
-                        className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 hover:shadow-xl transition-shadow"
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-4">
-                            <div className="text-4xl">{gift.icon}</div>
-                            <div>
-                              <h4 className="font-semibold text-gray-900 dark:text-white text-lg">
-                                {gift.name}
-                              </h4>
-                              <p className="text-sm text-gray-600 dark:text-gray-400">
-                                +{gift.value} affection points
-                              </p>
-                              <p className="text-xs text-gray-500 dark:text-gray-500">
-                                Given on{" "}
-                                {new Date(gift.timestamp).toLocaleString()}
-                              </p>
-                            </div>
-                          </div>
-                          <button
-                            onClick={() => deleteItem(gift.id, "gift")}
-                            className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-                          >
-                            <Trash2 className="w-5 h-5" />
-                          </button>
-                        </div>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Screenshots Tab */}
-            {activeTab === "screenshots" && (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    Screenshot Gallery
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    View and manage captured moments
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  {gameData.screenshots.length === 0 ? (
-                    <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-                      <Camera className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        No Screenshots Yet
-                      </h4>
-                      <p className="text-gray-500 dark:text-gray-400">
-                        Screenshots will appear here once they are taken in the
-                        game
-                      </p>
-                    </div>
-                  ) : (
-                    gameData.screenshots.map((screenshot) => (
-                      <div
-                        key={screenshot.id}
-                        className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 hover:shadow-xl transition-shadow"
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-4">
-                            <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-                              <Camera className="w-8 h-8 text-white" />
-                            </div>
-                            <div>
-                              <h4 className="font-semibold text-gray-900 dark:text-white text-lg">
-                                Screenshot #{screenshot.id}
-                              </h4>
-                              <p className="text-sm text-gray-600 dark:text-gray-400">
-                                {screenshot.waifu?.name} • {screenshot.mood} •{" "}
-                                {screenshot.affection}% affection
-                              </p>
-                              <p className="text-xs text-gray-500 dark:text-gray-500">
-                                Captured on {screenshot.timestamp}
-                              </p>
-                            </div>
-                          </div>
-                          <button
-                            onClick={() =>
-                              deleteItem(screenshot.id, "screenshot")
-                            }
-                            className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-                          >
-                            <Trash2 className="w-5 h-5" />
-                          </button>
-                        </div>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Outfits Tab */}
-            {activeTab === "outfits" && (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    Wardrobe System
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Control outfit unlocks and wardrobe management
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                  {Object.entries(outfitList).map(([key, outfit]) => (
-                    <div
-                      key={key}
-                      className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border-2 p-6 text-center transition-all duration-200 hover:shadow-xl ${
-                        gameData.unlockedOutfits.includes(key)
-                          ? "border-green-500 bg-green-50 dark:bg-green-900/20 shadow-green-200 dark:shadow-green-900/20"
-                          : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
-                      }`}
-                    >
-                      <div className="text-4xl mb-3">{outfit.icon}</div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white text-sm mb-2">
-                        {outfit.name}
-                      </h4>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                        {outfit.description}
-                      </p>
-                      <div
-                        className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mb-4 ${
-                          gameData.unlockedOutfits.includes(key)
-                            ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300"
-                            : "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300"
-                        }`}
-                      >
-                        {gameData.unlockedOutfits.includes(key)
-                          ? "Unlocked"
-                          : "Locked"}
-                      </div>
-                      <button
-                        onClick={() => {
-                          const newOutfits = gameData.unlockedOutfits.includes(
-                            key
-                          )
-                            ? gameData.unlockedOutfits.filter((o) => o !== key)
-                            : [...gameData.unlockedOutfits, key];
-                          updateGameData("unlockedOutfits", newOutfits);
-                        }}
-                        className={`w-full px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
-                          gameData.unlockedOutfits.includes(key)
-                            ? "bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50"
-                            : "bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900/30 dark:text-green-300 dark:hover:bg-green-900/50"
-                        }`}
-                      >
-                        {gameData.unlockedOutfits.includes(key)
-                          ? "Lock"
-                          : "Unlock"}
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </main>
       </div>

@@ -48,21 +48,6 @@ describe('gameReducer', () => {
     expect(newState2.conversationHistory[1]).toEqual(entry2);
   });
 
-  it('should handle UNLOCK_OUTFIT and prevent duplicates', () => {
-    const outfit = 'summer_dress';
-    const action = { type: 'UNLOCK_OUTFIT', outfit };
-    
-    // First unlock
-    const newState = gameReducer(initialState, action);
-    expect(newState.unlockedOutfits).toContain(outfit);
-    expect(newState.unlockedOutfits).toHaveLength(1);
-
-    // Try unlocking same outfit again
-    const newState2 = gameReducer(newState, action);
-    expect(newState2.unlockedOutfits).toHaveLength(1); // Should still be 1
-    expect(newState2.unlockedOutfits).toBe(newState.unlockedOutfits); // Reference equality check if state didn't change
-  });
-
   it('should handle INCREMENT_DATE_COUNT', () => {
     const action = { type: 'INCREMENT_DATE_COUNT' };
     // Assuming initialState.currentDate is null or 0. 

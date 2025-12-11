@@ -29,12 +29,6 @@ export default function LandingPage() {
         "Your choices matter! Experience different moods and reactions based on your decisions",
     },
     {
-      icon: <Trophy className="w-8 h-8" />,
-      title: "Achievements & Progress",
-      description:
-        "Unlock achievements, outfits, and special endings as you play",
-    },
-    {
       icon: <Users className="w-8 h-8" />,
       title: "Date System",
       description:

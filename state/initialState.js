@@ -1,6 +1,6 @@
 export const initialState = {
   // Core game states
-  gameState: "start", // start, waifuSelect, playing, ended, date, dateSelect, minigame, minigameSelect, giftSelect
+  gameState: "start", // start, waifuSelect, playing, ended, date, dateSelect, minigame, minigameSelect
   
   // Waifu and conversation
   selectedWaifu: null,
@@ -23,13 +23,7 @@ export const initialState = {
   greetingImage: "",
   
   // Features
-  achievements: [],
-  unlockedOutfits: [],
-  currentOutfit: "default",
-  photoMode: false,
-  screenshots: [],
   currentTheme: "purple",
-  gifts: [],
   currentDate: null,
   dateLocation: null,
   miniGame: null,
