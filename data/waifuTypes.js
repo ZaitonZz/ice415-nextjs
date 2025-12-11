@@ -37,22 +37,4 @@ export const waifuTypes = {
     traits: ["friendly", "cheerful", "social"],
     yandereTrigger: "territorial",
   },
-  warm: {
-    name: "Hana",
-    personality: "Welcoming & Warm",
-    description: "Warm and welcoming, makes you feel at home",
-    color: "from-green-400 to-emerald-500",
-    icon: "🌺",
-    traits: ["nurturing", "warm", "motherly"],
-    yandereTrigger: "overprotective",
-  },
-  mysterious: {
-    name: "Luna",
-    personality: "Mysterious & Enigmatic",
-    description: "Mysterious and enigmatic, with hidden depths and secrets",
-    color: "from-purple-600 to-indigo-700",
-    icon: "🌙",
-    traits: ["mysterious", "enigmatic", "alluring"],
-    yandereTrigger: "obsessive",
-  },
 };
