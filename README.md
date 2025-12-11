@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Yandere AI: Love.exe
 
-## Getting Started
+A Next.js-based interactive visual novel game with AI-driven conversations and dynamic mood systems.
 
-First, run the development server:
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- [MongoDB](https://www.mongodb.com/) (Local or Atlas)
+
+You will also need accounts for:
+- [Cloudinary](https://cloudinary.com/) (for image storage)
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd ice415-nextjs
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+## Environment Setup
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```env
+# Database
+MONGODB_URI=mongodb://localhost:27017/yandere-ai # or your Atlas URI
+
+# Authentication (NextAuth.js)
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your_super_secret_key_here # Generate with: openssl rand -base64 32
+
+# Cloudinary (Image Storage)
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+## Database Seeding
+
+To populate the database with initial data (waifu types, etc.), run the seed script:
+
+```bash
+npm run seed
+```
+
+## Running the Application
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Testing
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the test suite using Jest:
 
-## Learn More
+```bash
+npm test
+```
 
-To learn more about Next.js, take a look at the following resources:
+To run tests in watch mode:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run test:watch
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+- `app/`: Next.js App Router pages and API routes.
+- `components/`: React components (screens, UI, admin panel).
+- `lib/`: Utility libraries (database connection, models, Cloudinary).
+- `state/`: Global state management (GameContext, reducers).
+- `data/`: Static data files (conversations, waifu types).
+- `__tests__/`: Unit and integration tests.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Dynamic Conversations**: AI-simulated dialogue with branching paths.
+- **Mood System**: Waifu's mood changes based on player choices (Happy, Sad, Angry, Yandere, etc.).
+- **Affection System**: Track relationship progress.
+- **Admin Panel**: Manage game state and waifu data.
+- **Authentication**: User accounts and progress saving.
+
