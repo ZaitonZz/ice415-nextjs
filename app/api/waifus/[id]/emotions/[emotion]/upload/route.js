@@ -61,8 +61,9 @@ export async function POST(request, { params }) {
     const result = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
-          folder: 'waifus',
-          public_id: `waifu-${id}-${emotion}-${Date.now()}`,
+          folder: `ice415/waifus/${waifu.name.toLowerCase()}`,
+          public_id: emotion,
+          overwrite: true,
         },
         (error, result) => {
           if (error) reject(error);

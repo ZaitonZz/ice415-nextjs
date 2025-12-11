@@ -16,15 +16,6 @@ const WaifuManagement = () => {
   const [editingWaifu, setEditingWaifu] = useState(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
 
-  // Debug: Log token status
-  // useEffect(() => {
-  //   console.log(
-  //     "WaifuManagement - token received:",
-  //     token ? "Present" : "Missing"
-  //   );
-  //   console.log("WaifuManagement - token value:", token);
-  // }, [token]);
-
   // Form state
   const [formData, setFormData] = useState({
     name: "",
@@ -86,13 +77,6 @@ const WaifuManagement = () => {
     try {
       setLoading(true);
       setError(null);
-
-      // Check if token is available
-      // if (!token) {
-      //   setError("Authentication required. Please login again.");
-      //   setLoading(false);
-      //   return;
-      // }
 
       // Prepare traits array
       const traits = formData.traits
@@ -191,11 +175,6 @@ const WaifuManagement = () => {
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this waifu?")) return;
 
-    if (!token) {
-      setError("Authentication required. Please login again.");
-      return;
-    }
-
     try {
       setLoading(true);
       await deleteWaifu(id);
@@ -252,12 +231,6 @@ const WaifuManagement = () => {
           </button>
         )}
       </div>
-
-      {!token && (
-        <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
-          ⚠️ Authentication required. Please login as admin to manage waifus.
-        </div>
-      )}
 
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -523,14 +496,12 @@ const WaifuManagement = () => {
               <div className="flex gap-2">
                 <button
                   onClick={() => handleEdit(waifu)}
-                  disabled={!token}
                   className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(waifu._id)}
-                  disabled={!token}
                   className="flex-1 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Delete
