@@ -465,7 +465,7 @@ const AdminPanel = ({
             )}
 
             {/* Waifus Tab */}
-            {activeTab === "waifus" && <WaifuManagement token={accessToken} />}
+            {activeTab === "waifus" && <WaifuManagement />}
 
             {/* Achievements Tab */}
             {activeTab === "achievements" && (

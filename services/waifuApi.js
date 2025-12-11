@@ -39,11 +39,10 @@ export const getWaifuById = async (id) => {
 /**
  * Create new waifu (Admin only)
  */
-export const createWaifu = async (waifuData, token) => {
+export const createWaifu = async (waifuData) => {
   try {
     const response = await axios.post(`${API_URL}/waifus`, waifuData, {
       headers: {
-        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       }
     });
@@ -57,11 +56,10 @@ export const createWaifu = async (waifuData, token) => {
 /**
  * Update waifu (Admin only)
  */
-export const updateWaifu = async (id, waifuData, token) => {
+export const updateWaifu = async (id, waifuData) => {
   try {
     const response = await axios.put(`${API_URL}/waifus/${id}`, waifuData, {
       headers: {
-        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       }
     });
@@ -75,13 +73,9 @@ export const updateWaifu = async (id, waifuData, token) => {
 /**
  * Delete waifu (Admin only)
  */
-export const deleteWaifu = async (id, token) => {
+export const deleteWaifu = async (id) => {
   try {
-    const response = await axios.delete(`${API_URL}/waifus/${id}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
+    const response = await axios.delete(`${API_URL}/waifus/${id}`);
     return response.data;
   } catch (error) {
     console.error('Error deleting waifu:', error);
@@ -92,7 +86,7 @@ export const deleteWaifu = async (id, token) => {
 /**
  * Upload emotion image (Admin only)
  */
-export const uploadEmotionImage = async (waifuId, emotion, imageFile, token) => {
+export const uploadEmotionImage = async (waifuId, emotion, imageFile) => {
   try {
     const formData = new FormData();
     formData.append('image', imageFile);
@@ -102,7 +96,6 @@ export const uploadEmotionImage = async (waifuId, emotion, imageFile, token) => 
       formData,
       {
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
         }
       }

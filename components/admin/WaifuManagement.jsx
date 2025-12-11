@@ -9,7 +9,7 @@ import {
   getWaifuImageUrl,
 } from "../../services/waifuApi";
 
-const WaifuManagement = ({ token }) => {
+const WaifuManagement = () => {
   const [waifus, setWaifus] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,13 +17,13 @@ const WaifuManagement = ({ token }) => {
   const [showCreateForm, setShowCreateForm] = useState(false);
 
   // Debug: Log token status
-  useEffect(() => {
-    console.log(
-      "WaifuManagement - token received:",
-      token ? "Present" : "Missing"
-    );
-    console.log("WaifuManagement - token value:", token);
-  }, [token]);
+  // useEffect(() => {
+  //   console.log(
+  //     "WaifuManagement - token received:",
+  //     token ? "Present" : "Missing"
+  //   );
+  //   console.log("WaifuManagement - token value:", token);
+  // }, [token]);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -88,11 +88,11 @@ const WaifuManagement = ({ token }) => {
       setError(null);
 
       // Check if token is available
-      if (!token) {
-        setError("Authentication required. Please login again.");
-        setLoading(false);
-        return;
-      }
+      // if (!token) {
+      //   setError("Authentication required. Please login again.");
+      //   setLoading(false);
+      //   return;
+      // }
 
       // Prepare traits array
       const traits = formData.traits
@@ -107,7 +107,7 @@ const WaifuManagement = ({ token }) => {
           ...formData,
           traits,
         };
-        const response = await updateWaifu(editingWaifu._id, updateData, token);
+        const response = await updateWaifu(editingWaifu._id, updateData);
         waifuId = editingWaifu._id;
       } else {
         // For new waifu, we need to upload images first
@@ -125,14 +125,14 @@ const WaifuManagement = ({ token }) => {
           emotions: tempEmotions,
         };
 
-        const response = await createWaifu(createData, token);
+        const response = await createWaifu(createData);
         waifuId = response.data._id;
       }
 
       // Upload emotion images if provided
       for (const [emotion, file] of Object.entries(emotionImages)) {
         if (file) {
-          await uploadEmotionImage(waifuId, emotion, file, token);
+          await uploadEmotionImage(waifuId, emotion, file);
         }
       }
 
@@ -198,7 +198,7 @@ const WaifuManagement = ({ token }) => {
 
     try {
       setLoading(true);
-      await deleteWaifu(id, token);
+      await deleteWaifu(id);
       await fetchWaifus();
       setError(null);
     } catch (err) {
@@ -247,7 +247,6 @@ const WaifuManagement = ({ token }) => {
           <button
             onClick={() => setShowCreateForm(true)}
             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-            disabled={!token}
           >
             Add New Waifu
           </button>
@@ -546,4 +545,3 @@ const WaifuManagement = ({ token }) => {
 };
 
 export default WaifuManagement;
-

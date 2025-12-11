@@ -11,7 +11,7 @@ const WaifusPage = () => {
   
   return (
     <AdminLayout>
-      <WaifuManagement token="session-cookie-handled" />
+      <WaifuManagement />
     </AdminLayout>
   );
 };
