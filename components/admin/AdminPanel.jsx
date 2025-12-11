@@ -757,7 +757,7 @@ const AdminPanel = ({
                   type="text"
                   value={editForm.name || ""}
                   onChange={(e) => handleFormChange("name", e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 text-black dark:text-white transition-colors"
                   placeholder="Enter name"
                 />
               </div>
@@ -770,7 +770,7 @@ const AdminPanel = ({
                   onChange={(e) =>
                     handleFormChange("description", e.target.value)
                   }
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 text-black dark:text-white transition-colors"
                   rows="4"
                   placeholder="Enter description"
                 />

@@ -254,7 +254,7 @@ const WaifuManagement = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
                   placeholder="e.g., Aiko, Yuki, Sakura"
                   required
                 />
@@ -269,7 +269,7 @@ const WaifuManagement = () => {
                   name="personality"
                   value={formData.personality}
                   onChange={handleInputChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
                   placeholder="e.g., sweet, tsundere, yandere"
                   required
                 />
@@ -283,7 +283,7 @@ const WaifuManagement = () => {
                   name="description"
                   value={formData.description}
                   onChange={handleInputChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
                   rows="3"
                   placeholder="A sweet and gentle girl who loves to make others smile..."
                   required
@@ -299,7 +299,7 @@ const WaifuManagement = () => {
                   name="color"
                   value={formData.color}
                   onChange={handleInputChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
                   placeholder="from-pink-400 to-red-500"
                 />
               </div>
@@ -313,7 +313,7 @@ const WaifuManagement = () => {
                   name="icon"
                   value={formData.icon}
                   onChange={handleInputChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
                   placeholder="💕 (emoji)"
                 />
               </div>
@@ -327,7 +327,7 @@ const WaifuManagement = () => {
                   name="traits"
                   value={formData.traits}
                   onChange={handleInputChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
                   placeholder="loving, protective, romantic"
                 />
               </div>
@@ -341,7 +341,7 @@ const WaifuManagement = () => {
                   name="yandereTrigger"
                   value={formData.yandereTrigger}
                   onChange={handleInputChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
                   placeholder="e.g., 'other girl' or 'leaving'"
                   required
                 />
@@ -356,7 +356,7 @@ const WaifuManagement = () => {
                   name="order"
                   value={formData.order}
                   onChange={handleInputChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-black"
                   placeholder="0"
                 />
               </div>
